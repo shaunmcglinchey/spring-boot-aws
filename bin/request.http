@@ -1,0 +1,1 @@
+curl -X POST  http://localhost:8080/upload -H 'content-type: application/json' -d '{"name":"bob"}' -v
