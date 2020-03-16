@@ -5,9 +5,10 @@ import com.clearpath.cloud.aws.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class StorageController {
         this.storageService = storageService;
     }
 
-    @PostMapping(value = "/upload", consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping("/upload")
     public ResponseEntity upload(@RequestBody StorageRequest request) {
         String uuid = UUID.randomUUID().toString();
         this.storageService.putObject(bucket, uuid, new File("src/main/resources/foobar.txt"));

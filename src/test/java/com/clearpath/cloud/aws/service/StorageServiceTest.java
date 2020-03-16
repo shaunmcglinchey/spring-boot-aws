@@ -1,5 +1,6 @@
 package com.clearpath.cloud.aws.service;
 
+import com.clearpath.cloud.aws.exception.UploadFailedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,15 +32,15 @@ public class StorageServiceTest {
         storageService = new StorageService(s3Client);
     }
 
-    @Test(expected = SdkClientException.class)
-    public void givenSdkClientExceptionWhenStorageServicePutThenShouldPropagateException() {
+    @Test(expected = UploadFailedException.class)
+    public void givenSdkClientExceptionWhenStorageServicePutThenShouldThrowUploadFailedException() {
         when(s3Client.putObject((PutObjectRequest) any(), (Path) any()))
                 .thenThrow(SdkClientException.class);
         storageService.putObject("foo", "bar", new File("src/main/resources/foobar.txt"));
     }
 
-    @Test(expected = AwsServiceException.class)
-    public void givenAmazonServiceExceptionWhenStorageServicePutThenShouldPropagateException() {
+    @Test(expected = UploadFailedException.class)
+    public void givenAmazonServiceExceptionWhenStorageServicePutThenShouldThrowUploadFailedException() {
         when(s3Client.putObject((PutObjectRequest) any(), (Path) any()))
                 .thenThrow(AwsServiceException.class);
         storageService.putObject("foo", "bar", new File("src/main/resources/foobar.txt"));
