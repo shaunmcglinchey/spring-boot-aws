@@ -32,4 +32,6 @@ public class StorageController {
         this.storageService.putObject(bucket, uuid, new File("src/main/resources/foobar.txt"));
         return new ResponseEntity<>(uuid, HttpStatus.CREATED);
     }
+
+
 }
