@@ -9,10 +9,11 @@
 
 POST http://localhost:8080/order
 Content-Type: application/xml
+Accept: application/xml
 
 <?xml version="1.0"?>
 <FoodOrderRequest>
-    <orderType>REGISTER</orderType>
+    <orderType>canCEL</orderType>
     <order>things</order>
 </FoodOrderRequest>
 

@@ -22,10 +22,10 @@ public class OrderController {
 
     @PostMapping(
             value = "/order",
-            produces = "application/xml",
+            produces = { "application/xml", "application/json" },
             consumes = "application/xml"
     )
-    public ResponseEntity<OrderResponse> addFood(@Valid @RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<OrderResponse> placeOrder(@Valid @RequestBody OrderRequest orderRequest) {
         return new ResponseEntity<>(
                 new OrderResponse("1", this.orderService.order(orderRequest)), HttpStatus.CREATED
         );

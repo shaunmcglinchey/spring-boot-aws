@@ -12,8 +12,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = ValueOfEnumValidator.class)
-public @interface ValueOfEnum {
+@Constraint(validatedBy = ValueOfOrderTypeValidator.class)
+public @interface ValueOfOrderType {
     Class<? extends Enum<?>> enumClass();
     String message() default "must be any of enum {enumClass}";
     Class<?>[] groups() default {};

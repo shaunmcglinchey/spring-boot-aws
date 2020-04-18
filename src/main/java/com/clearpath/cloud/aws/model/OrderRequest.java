@@ -2,7 +2,7 @@ package com.clearpath.cloud.aws.model;
 
 public class OrderRequest {
 
-    @ValueOfEnum(enumClass = OrderType.class)
+    @ValueOfOrderType(enumClass = OrderType.class)
     private String orderType;
 
     private String order;

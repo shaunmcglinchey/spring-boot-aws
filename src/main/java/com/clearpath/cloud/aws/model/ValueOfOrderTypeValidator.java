@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, String> {
+public class ValueOfOrderTypeValidator implements ConstraintValidator<ValueOfOrderType, String> {
    private List<String> acceptedValues;
 
    @Override
-   public void initialize(ValueOfEnum annotation) {
+   public void initialize(ValueOfOrderType annotation) {
       acceptedValues = Stream.of(annotation.enumClass().getEnumConstants())
               .map(val -> val.toString().toLowerCase())
               .collect(Collectors.toList());

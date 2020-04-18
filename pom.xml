@@ -13,6 +13,7 @@
         <junit.version>4.13-beta-1</junit.version>
         <jackson.version>2.9.9</jackson.version>
         <aws-v2.version>2.10.30</aws-v2.version>
+        <logbook.version>2.1.0</logbook.version>
     </properties>
 
     <parent>
@@ -60,6 +61,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.zalando</groupId>
+            <artifactId>logbook-spring-boot-starter</artifactId>
+            <version>${logbook.version}</version>
         </dependency>
 
     </dependencies>

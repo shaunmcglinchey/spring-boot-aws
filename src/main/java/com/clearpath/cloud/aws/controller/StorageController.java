@@ -33,5 +33,4 @@ public class StorageController {
         return new ResponseEntity<>(uuid, HttpStatus.CREATED);
     }
 
-
 }
