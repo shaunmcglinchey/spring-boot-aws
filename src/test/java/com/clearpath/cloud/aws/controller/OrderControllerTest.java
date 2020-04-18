@@ -30,7 +30,7 @@ public class OrderControllerTest {
 
     @Test
     public void whenOrderTypeMissing_then_Http400() throws Exception {
-        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><order>foo</order></OrderRequest>";
+        String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><order>foo</order></OrderRequest>";
 
         mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_XML)
@@ -41,7 +41,7 @@ public class OrderControllerTest {
 
     @Test
     public void whenOrderTypeInvalid_then_Http400() throws Exception {
-        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><order>foo</order>" +
+        String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><order>foo</order>" +
                 "<orderType>BAR</orderType></OrderRequest>";
 
         mockMvc.perform(post("/order")
@@ -56,7 +56,7 @@ public class OrderControllerTest {
         when(orderService.order(any(OrderRequest.class)))
                 .thenReturn(OrderResult.SUCCESS);
 
-        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>register</orderType>" +
+        String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>register</orderType>" +
                 "<order>bar</order></OrderRequest>";
 
         mockMvc.perform(post("/order")
@@ -72,7 +72,7 @@ public class OrderControllerTest {
         when(orderService.order(any(OrderRequest.class)))
                 .thenReturn(OrderResult.REJECTED);
 
-        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>register</orderType>" +
+        String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>register</orderType>" +
                 "<order>bar</order></OrderRequest>";
 
         mockMvc.perform(post("/order")
