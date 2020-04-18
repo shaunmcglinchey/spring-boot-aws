@@ -1,13 +1,10 @@
 package com.clearpath.cloud.aws.model;
 
-import javax.validation.constraints.NotBlank;
-
 public class OrderRequest {
 
     @ValueOfEnum(enumClass = OrderType.class)
     private String orderType;
 
-    @NotBlank
     private String order;
 
     public OrderRequest() {

@@ -1,6 +1,7 @@
 package com.clearpath.cloud.aws.controller;
 
 import com.clearpath.cloud.aws.model.OrderRequest;
+import com.clearpath.cloud.aws.model.OrderResult;
 import com.clearpath.cloud.aws.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(OrderController.class)
@@ -27,11 +29,8 @@ public class OrderControllerTest {
     private OrderService orderService;
 
     @Test
-    public void whenMissingOrderType_thenResponseStatus_Http400() throws Exception {
-        when(orderService.order(any(OrderRequest.class)))
-                .thenReturn("foo");
-
-        String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest></OrderRequest>";
+    public void whenOrderTypeMissing_then_Http400() throws Exception {
+        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><order>foo</order></OrderRequest>";
 
         mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_XML)
@@ -41,11 +40,9 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void whenMissingOrder_thenResponseStatus_Http400() throws Exception {
-        when(orderService.order(any(OrderRequest.class)))
-                .thenReturn("foo");
-
-        String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>Foo</orderType></OrderRequest>";
+    public void whenOrderTypeInvalid_then_Http400() throws Exception {
+        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><order>foo</order>" +
+                "<orderType>BAR</orderType></OrderRequest>";
 
         mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_XML)
@@ -55,17 +52,35 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void whenOrderTypeInvalid_thenResponseStatus_Http400() throws Exception {
+    public void whenOrderTypeValid_then_Http201_Success() throws Exception {
         when(orderService.order(any(OrderRequest.class)))
-                .thenReturn("foo");
+                .thenReturn(OrderResult.SUCCESS);
 
-        String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>register</orderType></OrderRequest>";
+        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>register</orderType>" +
+                "<order>bar</order></OrderRequest>";
 
         mockMvc.perform(post("/order")
                 .contentType(MediaType.APPLICATION_XML)
                 .accept(MediaType.APPLICATION_XML)
                 .content(orderRequestBody))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated())
+                .andExpect(xpath("/OrderResponse/orderResult").string("SUCCESS"));
+    }
+
+    @Test
+    public void whenOrderTypeValid_then_Http201_Rejected() throws Exception {
+        when(orderService.order(any(OrderRequest.class)))
+                .thenReturn(OrderResult.REJECTED);
+
+        java.lang.String orderRequestBody = "<?xml version=\"1.0\"?><OrderRequest><orderType>register</orderType>" +
+                "<order>bar</order></OrderRequest>";
+
+        mockMvc.perform(post("/order")
+                .contentType(MediaType.APPLICATION_XML)
+                .accept(MediaType.APPLICATION_XML)
+                .content(orderRequestBody))
+                .andExpect(status().isCreated())
+                .andExpect(xpath("/OrderResponse/orderResult").string("REJECTED"));
     }
 
 

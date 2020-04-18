@@ -2,15 +2,15 @@ package com.clearpath.cloud.aws.model;
 
 public class StorageRequest {
 
-    private String name;
+    private OrderResult name;
 
     private StorageType storageType;
 
-    public String getName() {
+    public OrderResult getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(OrderResult name) {
         this.name = name;
     }
 
