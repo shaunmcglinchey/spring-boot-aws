@@ -12,14 +12,14 @@ Content-Type: application/xml
 Accept: application/xml
 
 <?xml version="1.0"?>
-<FoodOrderRequest>
+<OrderRequest>
     <orderType>canCEL</orderType>
     <order>things</order>
-</FoodOrderRequest>
+</OrderRequest>
 
 ###
 
-GET http://localhost:8080/order?id=8cb0534586408e90
+GET http://localhost:8080/order?id=cf0be8ba9d5655b3
 
 
 ###
