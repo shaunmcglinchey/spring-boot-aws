@@ -19,3 +19,7 @@ Accept: application/xml
 
 ###
 
+GET http://localhost:8080/order?id=8cb0534586408e90
+
+
+###

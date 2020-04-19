@@ -5,9 +5,7 @@ import com.clearpath.cloud.aws.model.OrderResponse;
 import com.clearpath.cloud.aws.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,6 +27,16 @@ public class OrderController {
         return new ResponseEntity<>(
                 new OrderResponse("1", this.orderService.order(orderRequest)), HttpStatus.CREATED
         );
+    }
+
+
+    @GetMapping(
+            value = "/order",
+            produces = "application/xml"
+    )
+    public ResponseEntity<String> getOrder(@RequestParam String id) {
+        byte[] object = orderService.getObject("clearpath-things", id);
+        return new ResponseEntity<>(orderService.getObjectByKey("body", object), HttpStatus.OK);
     }
 
 }
