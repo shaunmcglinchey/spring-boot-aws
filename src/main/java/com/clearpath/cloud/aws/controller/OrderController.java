@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 public class OrderController {
@@ -36,7 +37,8 @@ public class OrderController {
     )
     public ResponseEntity<String> getOrder(@RequestParam String id) {
         byte[] object = orderService.getObject("clearpath-things", id);
-        return new ResponseEntity<>(orderService.getObjectByKey("body", object), HttpStatus.OK);
+        Map<String, Object> jsonMap = orderService.asJsonMap(object);
+        return new ResponseEntity<>(jsonMap.get("body").toString(), HttpStatus.OK);
     }
 
 }

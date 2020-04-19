@@ -74,12 +74,12 @@ public class OrderService {
         }
     }
 
-    public String getObjectByKey(String key, byte[] object) {
+    public Map<String, Object> asJsonMap(byte[] object) {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> jsonMap;
         try {
             jsonMap = mapper.readValue(new String(object), new TypeReference<Map<String,Object>>(){});
-            return jsonMap.get(key).toString();
+            return jsonMap;
         } catch (IOException e) {
             e.printStackTrace();
         }
